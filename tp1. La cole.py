@@ -73,7 +73,7 @@ while(seguir_jugando): # Repetición del juego
                     print(f"Usted saca un {carta_jugador} su total es {sum(jugador_cartas)}")
                     print("Por el momento sacó las cartas: ", jugador_cartas)
                    
-                    if sum(jugador_cartas)>21:
+                    if sum(jugador_cartas)>=21:
                         saco_mas_cartas = False
                         juega_jugador = False
                         jugador_perdio = True
