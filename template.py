@@ -44,10 +44,21 @@ while(seguir_jugando): # Repetición del juego
     apuesta_bool = input("¿Quiere apostar? (s/n)")
     apuesta_jugador = 0
     if apuesta_bool == "s":
-        apuesta_jugador = int(input("¿Cuánto quiere apostar?"))
-    
+        puede_apostar = True
+        while(puede_apostar):
+            apuesta_jugador = int(input(f"¿Cuánto quiere apostar? (Max ${plata_jugador})"))
+            if apuesta_jugador > plata_jugador:
+                print("No puedes apostar mas plata de la que tenes")
+            elif apuesta_jugador == plata_jugador:
+                print("ALL IN!")
+            else:
+                puede_apostar = False
     
     while(juega_jugador):
+        carta_jugador = sacar_carta()
+        jugador_cartas.append(carta_jugador)
+        print("Usted saca un ", carta_jugador)
+        print("Por el momento sacó las cartas: ", jugador_cartas)
         carta_jugador = sacar_carta()
         jugador_cartas.append(carta_jugador)
         print("Usted saca un ", carta_jugador)
@@ -65,21 +76,26 @@ while(seguir_jugando): # Repetición del juego
                         saco_mas_cartas = False
                         juega_jugador = False
                         jugador_perdio = True
-                    sacar_otra_carta = input("¿Quieres sacar otra carta? (s/n)")
-                    if sacar_otra_carta == "n":
-                        saco_mas_cartas = False
-                        juega_jugador = False
+                    if not jugador_perdio:
+                        sacar_otra_carta = input("¿Quieres sacar otra carta? (s/n)")
+                        if sacar_otra_carta == "n":
+                            saco_mas_cartas = False
+                            juega_jugador = False
                     
         else :
             juega_jugador = False
             
-    while(juega_crupier):
+    while(juega_crupier and not jugador_perdio):
+        print("----------Juega el crupier----------")
+        print("--")
+        print("--")
         carta_crupier = sacar_carta()
         crupier_cartas.append(carta_crupier)
         print(f"El crupier saca un {carta_crupier} su total es {sum(crupier_cartas)}")
         print("Por el momento las cartas son : ", crupier_cartas)
         
         while (sum(crupier_cartas) < 16 ):
+            print("--")
             print("Pide otra carta")
             carta_crupier = sacar_carta()
             crupier_cartas.append(carta_crupier)
