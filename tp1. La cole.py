@@ -51,6 +51,7 @@ while(seguir_jugando): # Repetición del juego
                 print("No puedes apostar mas plata de la que tenes")
             elif apuesta_jugador == plata_jugador:
                 print("ALL IN!")
+                puede_apostar = False
             else:
                 puede_apostar = False
     
