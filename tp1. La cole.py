@@ -62,10 +62,7 @@ while(seguir_jugando): # Repetición del juego
         jugador_cartas.append(carta_jugador)
         print("Usted saca un ", carta_jugador)
         print("Por el momento sacó las cartas: ", jugador_cartas)
-        carta_jugador = sacar_carta()
-        jugador_cartas.append(carta_jugador)
-        print("Usted saca un ", carta_jugador)
-        print("Por el momento sacó las cartas: ", jugador_cartas)
+        
         sacar_otra_carta = input("¿Quieres sacar otra carta? (s/n)")
         if sacar_otra_carta == "s":
             saco_mas_cartas = True
