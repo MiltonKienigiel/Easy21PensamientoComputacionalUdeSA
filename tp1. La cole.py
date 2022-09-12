@@ -21,8 +21,9 @@ def sacar_carta():
 
 ########################### AQUÍ COMIENZA TU CÓDGIO ###########################
 seguir_jugando = True
-
+jugo_otro = False
 plata_jugador = 500
+listaGanadores = []
 while(seguir_jugando): # Repetición del juego
     #Tu código va acá
     juega_jugador = True
@@ -30,7 +31,8 @@ while(seguir_jugando): # Repetición del juego
     crupier_perdio = False
     jugador_perdio = False
     print("Bienvenid@ a la mesa de Easy 21")
-    
+    if not jugo_otro:
+        nombreJugador = input("¿Cual es tu nombre?")
     
     print("Empieza la partida")
     crupier_cartas = []
@@ -41,12 +43,12 @@ while(seguir_jugando): # Repetición del juego
     
     print("El crupier saca un ", carta_crupier)
     print("Por el momento sacó las cartas: ", crupier_cartas)
-    apuesta_bool = input("¿Quiere apostar? (s/n)")
+    apuesta_bool = input(f"¿Quiere apostar {nombreJugador}? (s/n)")
     apuesta_jugador = 0
     if apuesta_bool == "s":
         puede_apostar = True
         while(puede_apostar):
-            apuesta_jugador = int(input(f"¿Cuánto quiere apostar? (Max ${plata_jugador})"))
+            apuesta_jugador = int(input(f"¿Cuánto quiere apostar {nombreJugador}? (Max ${plata_jugador})"))
             if apuesta_jugador > plata_jugador:
                 print("No puedes apostar mas plata de la que tenes")
             elif apuesta_jugador == plata_jugador:
@@ -70,7 +72,7 @@ while(seguir_jugando): # Repetición del juego
             while(saco_mas_cartas):
                     carta_jugador = sacar_carta()
                     jugador_cartas.append(carta_jugador)
-                    print(f"Usted saca un {carta_jugador} su total es {sum(jugador_cartas)}")
+                    print(f"{nombreJugador} sacaste un {carta_jugador} su total es {sum(jugador_cartas)}")
                     print("Por el momento sacó las cartas: ", jugador_cartas)
                    
                     if sum(jugador_cartas)>=21:
@@ -107,11 +109,13 @@ while(seguir_jugando): # Repetición del juego
         juega_crupier = False   
         
     if jugador_perdio and not crupier_perdio: #El jugador se paso de cantidad de cartas
+        listaGanadores.append("Crupier")
         print("La partida termina, el crupier gana")
         if apuesta_bool == "s":
             plata_jugador = plata_jugador - apuesta_jugador
         print(f"Le quedan ${plata_jugador}")             
     if crupier_perdio and not jugador_perdio: #El crupier se paso y el jugador no
+        listaGanadores.append(nombreJugador)
         print("La partida termina. GANASTE!")
         if apuesta_bool == "s":
             plata_jugador = plata_jugador -apuesta_jugador+ apuesta_jugador*2
@@ -119,20 +123,30 @@ while(seguir_jugando): # Repetición del juego
    
     elif not jugador_perdio and not crupier_perdio: #El jugador no se paso de 21 y el crupier tampoco
         if sum(jugador_cartas)> sum(crupier_cartas): #El jugador estuvo mas cerca de 21 que el crupier
+            listaGanadores.append(nombreJugador)
+
             print("La partida termina. GANASTE!")
             if apuesta_bool == "s":
                 plata_jugador = plata_jugador -apuesta_jugador + apuesta_jugador*2
             print(f"Le quedan ${plata_jugador}")
         else:
+            listaGanadores.append("Crupier")
             print("La partida termina, el crupier gana")
             if apuesta_bool == "s":
                 plata_jugador = plata_jugador - apuesta_jugador
             print(f"Le quedan ${plata_jugador}")   
+            
+    if jugo_otro:
+        print(f"El historial de partidas es: {listaGanadores}")
         
     jugar_otro = input("¿Quieres jugar otro? (s/n)")
     if jugar_otro == "n" :
         seguir_jugando = False
-    
+        
+    else: 
+        jugo_otro = True
+        
+ 
         
     
     
