@@ -49,7 +49,9 @@ while(seguir_jugando): # Repetición del juego
         puede_apostar = True
         while(puede_apostar):
             apuesta_jugador = int(input(f"¿Cuánto quiere apostar {nombreJugador}? (Max ${plata_jugador})"))
-            if apuesta_jugador > plata_jugador:
+            if apuesta_jugador < 0 :
+                print("Tienes que apostar algo de plata!")
+            elif apuesta_jugador > plata_jugador:
                 print("No puedes apostar mas plata de la que tenes")
             elif apuesta_jugador == plata_jugador:
                 print("ALL IN!")
@@ -72,7 +74,7 @@ while(seguir_jugando): # Repetición del juego
                     print(f"{nombreJugador} sacaste un {carta_jugador} su total es {sum(jugador_cartas)}")
                     print("Por el momento sacó las cartas: ", jugador_cartas)
                    
-                    if sum(jugador_cartas)>=21:
+                    if sum(jugador_cartas)> 21:
                         saco_mas_cartas = False
                         juega_jugador = False
                         jugador_perdio = True
